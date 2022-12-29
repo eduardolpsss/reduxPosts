@@ -1,19 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App';
+import { createStore, applyMiddleware, Store } from 'redux';
 import { Provider } from 'react-redux';
-import { configureStore, applyMiddleware, Store } from '@reduxjs/toolkit';
 import thunk from 'redux-thunk';
-
+import App from './App';
 import reducer from './store/reducer';
 
-// Criando store
 const store: Store<PostState, PostAction> & {
-  dispatch: DispatchType;
-} = configureStore({
-  reducer,
-  middleware: [thunk],
-});
+  dispatch: DispatchType
+} = createStore(reducer, applyMiddleware(thunk));
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
